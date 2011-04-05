@@ -1,0 +1,23 @@
+Depends on, (very) simple dependency injection for ruby
+=======================================================
+
+Dependency injection in most static languages is used to break dependencies between object and layers.
+
+Now Ruby as a language is loosely coupled but that doesn't mean it can benefit from some simple dependency injection, and depends on tries to do this.
+
+To add dependencies simply add depends_on and a list of dependencies. The dependencies will be added to you class so you can call them when ever you like
+
+Example
+
+class MyAwesomeClass
+  depends_on :a_nother_class
+
+  def some_awesome_method
+    a_nother_class.do_something_awesome
+  end
+end
+
+Future work
+
+Ideal this should make testing that wee bit easier allowing you to substitute fakes when you want to.
+

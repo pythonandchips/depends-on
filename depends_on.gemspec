@@ -6,11 +6,11 @@ Gem::Specification.new do |s|
   s.name        = "depends_on"
   s.version     = DependsOn::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.authors     = ["TODO: Write your name"]
-  s.email       = ["TODO: Write your email address"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.authors     = ["Colin Gemmell"]
+  s.email       = ["pythonandchips{at}gmail.com"]
+  s.homepage    = "http://pythonandchips.net"
+  s.summary     = %q{Simple dependency injection for ruby}
+  s.description = %q{Simple dependency injection for ruby}
 
   s.rubyforge_project = "depends_on"
 

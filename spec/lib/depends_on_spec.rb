@@ -7,7 +7,7 @@ class DependancyB
 end
 
 class TestClass
-  depends_on :dependancy_a, :dependancy_b, :dependancy_c => lambda { |owner| "a nother dependancy" }
+  depends_on :dependancy_a, :dependancy_b, :dependancy_c => lambda { |owner| "a nother dependancy" }, :dependancy_d => lambda { |owner| "a nother dependancy 2"}
 end
 
 describe "add depends on method to class" do
@@ -51,10 +51,15 @@ end
 describe "when factory is defined" do
   before do
     @test_class = TestClass.new
-    @dependancy = @test_class.dependancy_c
+    @dependancy_c = @test_class.dependancy_c
+    @dependancy_d = @test_class.dependancy_d
   end
 
   it "should resolve factory method" do
-    @dependancy.should eql "a nother dependancy"
+    @dependancy_c.should eql "a nother dependancy"
+  end
+
+  it "should resolve multiple factories" do
+    @dependancy_d.should eql "a nother dependancy 2"
   end
 end

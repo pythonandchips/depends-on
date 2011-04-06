@@ -6,8 +6,6 @@ module DependsOn
       self.instance_eval do
         args.each do |dependancy|
           obj = resolve_dependancy(dependancy)
-          method_name = resolve_method_name(dependancy)
-          create_method(method_name, obj)
         end
       end
     end
@@ -15,13 +13,16 @@ module DependsOn
     private
 
     def resolve_dependancy dependancy
-      return Object.const_get(dependancy.to_s.camelize).new if dependancy.class == Symbol
-      return dependancy.values[0].call(self) if dependancy.class == Hash
-    end
-
-    def resolve_method_name dependancy
-      return dependancy if dependancy.class == Symbol
-      return dependancy.keys[0] if dependancy.class == Hash
+      if dependancy.class == Symbol
+        obj = Object.const_get(dependancy.to_s.camelize).new
+        return create_method dependancy, obj
+      end
+      if dependancy.class == Hash
+        dependancy.each_pair do |pair|
+          obj = pair[1].call(self)
+          create_method(pair[0], obj)
+        end
+      end
     end
 
     def create_method method_name, dependancy

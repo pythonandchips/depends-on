@@ -7,7 +7,7 @@ Now Ruby as a language is loosely coupled but that doesn't mean it can benefit f
 
 To add dependencies simply add depends_on and a list of dependencies. The dependencies will be added to you class so you can call them when ever you like
 
-Example
+Examples
 
 class MyAwesomeClass
   depends_on :a_nother_class
@@ -16,6 +16,14 @@ class MyAwesomeClass
     a_nother_class.do_something_awesome
   end
 end
+
+With factory methods
+
+class MyAwesomeClass < ActiveRecord::Base
+  depends_on :a_nother_class => lambda{ |owner| owner.country == "UK" ? UKTaxCalculator.new : WorldTaxCalculator.new }
+end
+
+
 
 Future work
 

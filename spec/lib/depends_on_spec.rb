@@ -7,9 +7,8 @@ class DependancyB
 end
 
 class TestClass
-  depends_on :dependancy_a, :dependancy_b
+  depends_on :dependancy_a, :dependancy_b, :dependancy_c => lambda { |owner| "a nother dependancy" }
 end
-
 
 describe "add depends on method to class" do
   it "should include DependsOn::MacroMethods into class" do
@@ -34,9 +33,7 @@ describe "when adding dependancies to instance" do
   end
 
   it { subject.dependancy_a.should be_an_instance_of DependancyA}
-
   it { subject.dependancy_b.should be_an_instance_of DependancyB}
-
 end
 
 describe "when accessing the dependancy" do
@@ -49,5 +46,15 @@ describe "when accessing the dependancy" do
   it "should return same instance as first access" do
     @test_class.dependancy_a.should be @first_access
   end
+end
 
+describe "when factory is defined" do
+  before do
+    @test_class = TestClass.new
+    @dependancy = @test_class.dependancy_c
+  end
+
+  it "should resolve factory method" do
+    @dependancy.should eql "a nother dependancy"
+  end
 end
